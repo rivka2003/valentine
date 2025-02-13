@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #FFE4E1;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .scene-container {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+    
+    .click-instruction {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #FF1493;
+      font-size: 18px;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.1); }
+    }
+    
+    .envelope {
+      cursor: pointer;
+    }
+    
+    .message {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+      width: 80%;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: center;
+      border: 3px solid #FF69B4;
+      position: relative;
+    }
+    
+    .message.visible {
+      display: block;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #FF69B4;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    .floating-heart {
+      position: fixed;
+      color: #FF1493;
+      font-size: 20px;
+      pointer-events: none;
+      z-index: 1;
+      animation: float-up 15s linear infinite;
+    }
+    
+    @keyframes float-up {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+    
+    .message-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #FF1493;
+    }
+  </style>
+  <script>
+    function showMessage() {
+      document.getElementById('message').classList.add('visible');
+      document.getElementById('message').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function closeMessage() {
+      document.getElementById('message').classList.remove('visible');
+    }
+    
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '♥';
+      heart.classList.add('floating-heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 5 + 10) + 's';
+      heart.style.opacity = Math.random() * 0.5 + 0.3;
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 15000);
+    }
+    
+    setInterval(createHeart, 300);
+  </script>
+</head>
+<body>
+  <div class="scene-container">
+    <div class="click-instruction">✨ Click the delivery camel's envelope! ✨</div>
+    <svg width="400" height="300" viewBox="0 0 400 300">
+      <!-- Sand background -->
+      <rect x="0" y="200" width="400" height="100" fill="#F4A460"/>
+      
+      <!-- Combined camel and envelope group -->
+      <g>
+        <animate attributeName="transform" 
+                 attributeType="XML" 
+                 type="translate" 
+                 from="-100,0" 
+                 to="500,0" 
+                 dur="10s" 
+                 repeatCount="indefinite"/>
+                 
+        <!-- Camel -->
+        <g transform="translate(200, 180)">
+          <!-- Body -->
+          <path d="M-40,0 Q-20,-30 0,-30 Q20,-30 40,0" fill="#D2B48C"/>
+          <!-- Humps -->
+          <path d="M-20,-30 Q-10,-50 0,-30 Q10,-50 20,-30" fill="#D2B48C"/>
+          <!-- Head -->
+          <path d="M30,-30 Q40,-40 50,-30 L60,-20 L50,-10 L40,-20" fill="#D2B48C"/>
+          <!-- Legs -->
+          <rect x="-30" y="0" width="10" height="40" fill="#D2B48C"/>
+          <rect x="20" y="0" width="10" height="40" fill="#D2B48C"/>
+        </g>
+        
+        <!-- Envelope - positioned on camel's back -->
+       <g transform="translate(1, -10)" class="envelope" onclick="showMessage()">
+          <animateTransform
+            attributeName="transform"
+            type="translate"
+            additive="sum"
+            values="200,140; 200,135; 200,140"
+            dur="2s"
+            repeatCount="indefinite"/>
+          <rect x="-15" y="-10" width="30" height="20" fill="#FF69B4"/>
+          <path d="M-15,-10 L0,0 L15,-10" fill="#FF1493"/>
+          <text x="-5" y="5" fill="white" font-size="12">♥</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div id="message" class="message">
+    <button class="close-btn" onclick="closeMessage()">×</button>
+    <div class="message-text">
+      <h2>♥ My Precious Hud ♥</h2>
+      <p>
+        On this Valentine's Day, my heart is full with love for you. Every moment we share is precious, and every moment apart makes me want you even more.
+      </p>
+      <p>
+        I miss your smile, your touch, and the way you make everything better just by being there. You are my sunshine, my comfort, and my home.
+      </p>
+      <p>
+        I adore everything about you - your kindness, your strength, your humor, and even the little things that make you uniquely you. You make my world brighter and more beautiful.
+      </p>
+      <p>
+        My greatest wish is for your happiness, to see your dreams come true, and to be by your side through it all. You deserve all the joy and love in the world.
+      </p>
+      <p>
+        Here's to many more Valentine's Days together, to creating countless precious memories, and to our love growing stronger with each passing day.
+      </p>
+      <p>
+        With all my heart,<br/>
+        ♥ Rivki ♥
+      </p>
+    </div>
+  </div>
+</body>
+</html>
